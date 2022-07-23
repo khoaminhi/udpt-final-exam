@@ -1,0 +1,45 @@
+<div class="container-lg">
+    <div class="logo ">
+        <a href="/18120418_ThiCuoiKy/index.php"><img src=<?php echo $cssRefPath . "public\image\anhthekhoaminhi.png" ?>
+            alt="logo" /></a>
+        <p>Phạm Minh Khoa</p>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body  text-start">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Thông tin</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Chức năng
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Chức năng 1</a></li>
+                        <li><a class="dropdown-item" href="#">Chức năng 2</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Chức năng khác</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input style="font-style: italic;" class="form-control me-2" type="search" placeholder="nhập" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Tìm</button>
+            </form>
+        </div>
+    </div>
+</div>

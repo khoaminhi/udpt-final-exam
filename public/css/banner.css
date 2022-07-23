@@ -1,0 +1,27 @@
+.slideImageShow{
+    display: none;
+}
+
+.bannerImageContainer{
+    display: inline-flex;
+    width: 500px;
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-items: center;
+}
+
+img.slideImageShow{
+    max-width: 100%;
+    width: 400px;
+    height: auto;
+    object-fit: contain;
+}
+
+.slideImageShow h2, .slideImageShow h5{
+    color: rgb(255, 48, 93);
+}
+
+#banner{
+    background-image: linear-gradient(to right, rgba(255, 86, 123, 0.466), rgba(101, 204, 249, 0.416));
+}

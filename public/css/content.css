@@ -1,0 +1,13 @@
+#wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#content{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

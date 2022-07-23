@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Fascinate&display=swap');
+
+:root{
+    --header-height: 70px;
+}
+
+#header {
+    background-color: rgb(167, 217, 255);
+    height: var(--header-height);
+}
+
+.pushDownContent{
+    height: var(--header-height);
+    color: white;
+}
+
+.logo img {
+    width: var(--header-height);
+    height: var(--header-height);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+.logo p {
+    color: rgb(250 20 156);
+    font-size: calc(var(--header-height)/3);
+    font-weight: bold;
+    font-family: 'Fascinate', cursive;
+    margin: 0px 0px 0px 8px;
+}

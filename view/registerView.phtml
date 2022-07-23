@@ -1,0 +1,258 @@
+<div class="container">
+    <!-- <div>
+        <?php echo $result->name?>
+    </div> -->
+    <!-- <div>
+        <?php print_r($result);?>
+    </div> -->
+
+    <div class="d-flex justify-content-center">
+        <div class="w-75">
+            <!-- bootstrap modal -->
+            <?php
+                if(isset($resultForModal)){
+                    $notice = "<div class='modal fade' id='warningBootstrapModal' tabindex='-1' role='dialog'
+                        aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
+                        <div class='modal-dialog modal-dialog-centered' role='document'>
+                            <div class='modal-content text-center'>
+                                <div class='modal-header d-flex justify-content-center text-warning'>
+                                    <h5 class='modal-title' id='exampleModalLongTitle'>Thông Báo</h5>
+                                </div>
+                                <div class='modal-body'>
+                                    $resultForModal
+                                </div>
+                                <div class='modal-footer'>
+                                    <button id='hideNoticeRelPerson' type='button' class='btn btn-secondary'
+                                        data-dismiss='modal'>Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                    echo $notice;
+                }
+            ?>
+            <!-- store info -->
+            <h4 class="text-center" style="color: rgb(250 20 156); font-weight: bold;">Đăng ký tài khoản cửa hàng</h4>
+
+            <form class="was-validated mb-3" method="POST" action="?action=register">
+                <!-- <div>
+                    <label for="">Ảnh logo</label>
+                    <input type="file" name="logo" id="logo" />
+                </div> -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputName">Tên cửa hàng (*)</label>
+                        <input type="input" placeholder="nhập tên cửa hàng" class="form-control" id="inputName"
+                            name="name" oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputBirtDay">Ngày mở(*)</label>
+                        <input type="datetime-local" class="form-control" id="birtd" name="dayStart"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputName">Giờ mở cửa(*)</label>
+                        <input type="time" class="form-control" name="timeOpen"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputBirtDay">Giờ đóng cửa(*)</label>
+                        <input type="time" class="form-control" name="timeClose"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputNameFamily">Loại sản phẩm kinh doanh (*)</label>
+                        <input placeholder="Vui lòng nhập loại sản phẩm kinh doanh" type="input" class="form-control"
+                            name="productCategory" oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCustomer">Số điện thoại (*)</label>
+                        <input type="input" class="form-control" id="customerID" name="phone"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div><br />
+                <!-- {{!-- province, district, ward --}} -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="inputCity">Tỉnh thành (*)</label>
+                        <select class="form-select" id="citySelect" onchange="choosedCity()" name="province"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputDistrict">Quận huyện (*)</label>
+                        <select class="form-select" id="district" onchange="choosedDistrict()" name="district"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputWard">Phường xã (*)</label>
+                        <select class="form-select" id="ward" name="ward"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        </select>
+                    </div>
+                </div><br />
+                <!-- {{!-- address --}} -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputStreet">Số nhà, tên đường (*)</label>
+                        <input value="<?php if(!empty($result->address))  echo $result->address?>" type="input"
+                            class="form-control" id="street" name="address"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                </div><br />
+                <!-- {{!-- email --}} -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputNameFamily">Email (*)</label>
+                        <input type="input" class="form-control" id="nameFamily" name="email"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputPassword">Mật khẩu (*)</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword">Xác nhận mật khẩu (*)</label>
+                        <input type="password" class="form-control" id="confirm_password" name="repassword" required>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Các bên bán hàng mong muốn đăng kí bán hàng cần phải thỏa các tiêu chí sau:</h4>
+                        <p>
+                             Giấy phép kinh doanh
+                             Có chứng nhận an toàn thực phẩm
+                             Các sản phẩm có nguồn gốc xuất xứ rõ ràng, như nhập từ đâu, thời gian nào
+                            Bên bán phải cung cấp các giấy tờ này và được kiểm tra xét duyệt bởi công ty ABC. Sau khi
+                            hoàn thành, bên bán phải trả lời các câu hỏi cam kết liên quan đến tiêu chuẩn bán hàng như:
+                            Của hàng bạn phải có nhân viên chăm sóc khách hàng. Cửa hàng bạn phải có thông báo công ty
+                            ABC khi có thay đổi địa chỉ kinh doanh,……
+                        </p>
+                        <h4>Sau khi bên bán hoàn thành tất cả các cam kết, các thông tin sau sẽ được cung cấp đầy đủ như:</h4>
+                        <p>
+                            • Tên cửa hàng
+                            • Địa chỉ kinh doanh
+                            • Loại mặt hàng: nông sản, thịt-cá,….
+                            • Số điện thoại liên hệ
+                            • Tên nhân viên chăm sóc khách hàng
+                            • Logo của hàng (nếu có)
+                            • Ngày giờ mở cửa
+                            • Ngày thành lập
+                        </p>
+                        <h4>Sau khi cung cấp thông tin, công ty ABC sẽ kiểm duyệt, thông báo lập hợp đồng và kích hoạt
+                            hệ thống để bên bán có thể bán sản phẩm
+                        </h4>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value=1 id="defaultCheck1" name="agreeTerm"
+                            oninvalid="this.setCustomValidity('Vui lòng đồng ý điều khoản của chúng tôi!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <label class="form-check-label" for="defaultCheck1">
+                          Đồng ý?
+                        </label>
+                    </div>
+                </div><br />
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Đăng ký tài khoản cửa hàng</button>
+                </div>
+            </form>
+            <div class="row text-center">
+                <p class="mt-4">Bạn đã có tài khoản? <a href="auth.php?action=login">login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var locationVN = null;
+    var cityCustomer = null;
+    window.onload = function () {
+        (async () => {
+            locationVN = await fetch('https://provinces.open-api.vn/api/?depth=3')
+                .then(res => { return res.json() });
+            pushCityInputBox();
+        })();
+    };
+
+    function pushCityInputBox() {
+        let provincesNameHTML = `<option value="">Chọn tỉnh thành</option>`;
+        for (province of locationVN) {
+            provincesNameHTML += `<option value="${province.name}">${province.name}</option>`;
+        }
+        document.getElementById("citySelect").innerHTML += provincesNameHTML;
+    }
+
+    function choosedCity() {
+        document.getElementById("district").innerHTML = "";
+        document.getElementById("district").value = "";
+        document.getElementById("ward").innerHTML = "";
+        document.getElementById("ward").value = "";
+        let nameCity = document.getElementById("citySelect").value;
+        cityCustomer = locationVN.filter(item => item.name == nameCity)[0];
+        let districtsHTML = "";
+        for (let district of cityCustomer.districts) {
+            districtsHTML += `<option value="${district.name}">${district.name}</option>`;
+        };
+        document.getElementById("district").innerHTML = districtsHTML;
+    }
+
+    function choosedDistrict() {
+        let nameDistrict = document.getElementById("district").value;
+        let wards = cityCustomer.districts.filter(item => item.name == nameDistrict)
+        let wardsHTML = ""
+        for (let ward of wards[0].wards) {
+            wardsHTML += `<option value="${ward.name}">${ward.name}</option>`
+        }
+        document.getElementById("ward").innerHTML = wardsHTML
+    }
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Không khớp mật khẩu!");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    // $(window).on('load', function () {
+    //     $('#warningBootstrapModal').modal('show');
+    // });
+    // $(document).ready(() => {
+    //     $('#hideNoticeRelPerson').click(() => {
+    //         $('#warningBootstrapModal').modal('hide');
+    //     })
+    // })
+</script>

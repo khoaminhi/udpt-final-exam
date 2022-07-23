@@ -1,0 +1,217 @@
+<style>
+    .positionAtRight {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        border: 2px solid rgb(101, 184, 220);
+        padding: 10px;
+        margin: 10px;
+        height: fit-content;
+    }
+
+    .stylePlayerClub {
+        display: flex;
+        position: relative;
+        height: fit-content;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    table.searchPlayerTableInput,
+    table.searchPlayerTableInput th,
+    table.searchPlayerTableInput td,
+    table.searchPlayerTableInput tr {
+        border: 0;
+    }
+
+    .searchPlayerInput {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .alignAdvancedSearchButton {
+        text-align: end;
+    }
+
+    .advancedSearch {
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    #searchPlayerTable{
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    .deletePlayerButton{
+        border: 2px solid rgb(131, 188, 237);
+        border-radius: 2px;
+        margin: 2px 4px 2px 4px;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchPlayer').click(function () {
+            let keySearch = encodeURI($('#inputSearchPlayer').val());
+            let url = 'getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#advancedSearchButton').click(function () {
+            let playerName = encodeURI($('#playerNameInput').val());
+            let playerPosition = encodeURI($('#playerPositionInput').val());
+            let playerClub = encodeURI($('#playerClubInput').val());
+            let playerNumber = encodeURI($('#playerNumberInput').val());
+            let playerNationality = encodeURI($('#playerNationalityInput').val());
+            let url = 'getAllPlayerClub.php?action=searchPlayerAdvanced';
+            let data = {
+                playerName,
+                playerPosition,
+                playerClub,
+                playerNumber,
+                playerNationality
+            };
+            $.ajax({
+                url,
+                type: 'GET',
+                data,
+                async: true,
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.deletePlayerButton').click(function(){
+            let playerID = encodeURI($(this).val());
+            let url = '/18120418_Football/components/addModifyPlayer.php?action=delete';
+            let data = {
+                playerID
+            };
+            $.ajax({
+                url,
+                type: 'POST',
+                data,
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+
+<div class="stylePlayerClub">
+    <div class="positionAtRight">
+        <div class="searchPlayerInput">
+            <input type="text" name="keySearch" placeholder="Search player" id="inputSearchPlayer" />
+            <input type="button" value="Search" id="searchPlayer" />
+        </div>
+
+        <div class="advancedSearch">
+            <table class="searchPlayerTableInput">
+                <caption>Advanced Search</caption>
+                <tr>
+                    <th>Name:</th>
+                    <td><input type="text" id="playerNameInput"></td>
+                </tr>
+                <tr>
+                    <th>Position:</th>
+                    <td><input type="text" id="playerPositionInput"></td>
+                </tr>
+                <tr>
+                    <th>Club:</th>
+                    <td><input type="text" id="playerClubInput"></td>
+                </tr>
+                <tr>
+                    <th>Number:</th>
+                    <td><input type="text" id="playerNumberInput"></td>
+                </tr>
+                <tr>
+                    <th>Nationality:</th>
+                    <td><input type="text" id="playerNationalityInput"></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td class="alignAdvancedSearchButton"><input type="button" value="Advanced Search"
+                            id="advancedSearchButton"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="redirectPlayerPosition">
+            <a href="./getAllPlayer.php">Redirect to get all player!</a>
+        </div>
+    </div>
+
+    <div id="searchPlayerTable">
+        <table>
+            <tr>
+                <th>Full Name</th>
+                <th>Position</th>
+                <th>Number</th>
+                <th>Nationality</th>
+                <th>Club</th>
+                <th>Modify</th>
+                <th>Remove</th>
+            </tr>
+            <?php foreach ($listAllPlayer as $player): ?>
+            <tr>
+                <td>
+                    <?= $player->FullName ?>
+                </td>
+                <td>
+                    <?= $player->Position ?>
+                </td>
+                <td>
+                    <?= $player->Number ?>
+                </td>
+                <td>
+                    <?= $player->Nationality ?>
+                </td>
+                <td>
+                    <?= $player->ClubName?>
+                </td>
+                <td>
+                    <?php $link="addModifyPlayer?action=viewModify";
+                    $link.="&PlayerID=".$player->PlayerID;
+                    $link.="&ClubID=".$player->ClubID;
+                    $link.="&ClubName=".$player->ClubName;
+                    $link.="&Nationality=".$player->Nationality;
+                    $link.="&Position=".$player->Position;
+                    $link.="&FullName=".$player->FullName;
+                    $link.="&Number=".$player->Number;   
+                    $link.='&DOB='.$player->DOB;
+                    ?>
+                    <a href="<?php echo $link?>">modify</a>
+                </td>
+                <td>
+                    <button value="<?=$player->PlayerID?>" class="deletePlayerButton">Delete</button>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+
+<div>
+    <?php if(!empty($paginButton)) echo $paginButton?>
+</div>

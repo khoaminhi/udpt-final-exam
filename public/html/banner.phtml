@@ -1,0 +1,30 @@
+<div class="col-2 bannerSlideShowSide"></div>
+<div class="col-6 bannerImageContainer">
+    <div class="slideImageShow">
+        <h2><b>Liên Hệ Quảng Cáo</b></h1>
+            <h5><i>Hãy gọi đến số điện thoại 0336069400 để được tư vấn trực tiếp, hoặc qua messenger.</i></h1>
+    </div>
+    <img class="slideImageShow" src=<?php echo $cssRefPath . "public/image/logo-same-color.gif" ?> alt="slide show"
+    style="width:100%">
+    <img class="slideImageShow" src=<?=$cssRefPath . "public/image/logo-noline-wider-shorter.png" ?> alt="slide show"
+    style="width:100%">
+    <img class="slideImageShow" src=<?=$cssRefPath . "public/image/logo-oke.png" ?> alt="slide show"
+    style="width:100%">
+</div>
+<div class="col-2 bannerSlideShowSide"></div>
+
+<script>
+    var slideIndex = 0;
+    let listImage = document.getElementsByClassName("slideImageShow");
+    listImage[slideIndex].style.display = "inline";
+    function bannerSlideShow() {
+        let i = 0;
+        for (; i < listImage.length; i++) {
+            listImage[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > listImage.length) { slideIndex = 1 }
+        listImage[slideIndex - 1].style.display = "inline";
+    }
+    let myClearInterval = setInterval(bannerSlideShow, 3000);
+</script>

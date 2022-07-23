@@ -1,0 +1,66 @@
+<?php
+$CSS_PATH = "template/index/indexCSS.php";
+$HEADER_PATH = "public/html/header.phtml";
+$FOOTER_PATH = "public/html/footer.phtml";
+$BANNER_PATH = "public/html/banner.phtml";
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cửa hàng - Đi chợ thuê</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <?php include($cssRefPath . $CSS_PATH);?>
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <div class="pushDownContent" class="row">header</div>
+        <div id="header" class="d-lg-flex justify-content-around navbar navbar-expand-md container-fluid py-0 fixed-top">
+            <?php include($cssRefPath . $HEADER_PATH);?>
+        </div>
+        <div id="banner">
+            <?php include($cssRefPath . $BANNER_PATH);?>
+        </div>
+        <div id="wrapper">
+            <div id="smallbar"></div>
+            <div id="content" class="container">
+                <?php include($cssRefPath . $CONTENT_PATH);?>
+            </div>
+        </div>
+        <div class="pushUpContent">footer</div>
+        <div id="footer" class="py-2">
+            <?php include($cssRefPath . $FOOTER_PATH);?>
+        </div>
+    </div>
+
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+        </script>
+
+
+    <!-- {{!-- jquery --}} -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <!-- modal bootstrap -->
+    <script>
+        $(window).on('load', function () {
+            $('#warningBootstrapModal').modal('show');
+        });
+        $(document).ready(() => {
+            $('#hideNoticeRelPerson').click(() => {
+                $('#warningBootstrapModal').modal('hide');
+            })
+        })
+    </script>
+</body>
+
+</html>

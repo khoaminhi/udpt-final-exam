@@ -1,0 +1,267 @@
+<style>
+img.logo-store{
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+}
+</style>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="w-75">
+            <!-- bootstrap modal -->
+            <?php
+            if(isset($resultForModal)){
+                $notice = "<div class='modal fade' id='warningBootstrapModal' tabindex='-1' role='dialog'
+                    aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
+                    <div class='modal-dialog modal-dialog-centered' role='document'>
+                        <div class='modal-content text-center'>
+                            <div class='modal-header d-flex justify-content-center text-warning'>
+                                <h5 class='modal-title' id='exampleModalLongTitle'>Thông Báo</h5>
+                            </div>
+                            <div class='modal-body'>
+                                $resultForModal
+                            </div>
+                            <div class='modal-footer'>
+                                <button id='hideNoticeRelPerson' type='button' class='btn btn-secondary'
+                                    data-dismiss='modal'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+                echo $notice;
+            }
+            ?>
+            <!-- store info -->
+            <h4 class="text-center" style="color: rgb(250 20 156); font-weight: bold;">Thông tin tài khoản cửa hàng
+                <?php if(!empty($result->name)) echo $result->name?>
+            </h4>
+            <div class="my-3">
+                <div >
+                <img src="http://localhost:3000/api/file/thịt heo udpt.jpg" alt="logo" class="logo-store"/>
+                </div>
+            </div>
+            <fieldset>
+                <legend>Upload with AJAX</legend>
+                <p>Select image to upload:</p>
+                <input type="file" name="myJSFile" id="myJSFile" />
+                <br />
+                <button onclick="uploadPut('http://localhost:3000/api/file/')">Upload one image via AJAX</button>
+                <p id="responseOK" style="color: green; font-weight: bold"></p>
+                <p id="responseError" style="color: red; font-weight: bold"></p>
+            </fieldset>
+            <div class="my-3">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label for="">Ảnh logo</label>
+                        <input type="file" name="logo" id="logoStore" />
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Đổi logo</button>
+                    </div>
+                </form>
+            </div>
+            <form class="was-validated mb-3" method="POST" action="?action=update">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputName">Tên cửa hàng (*)</label>
+                        <input value="<?php if(!empty($result->name)) echo $result->name;?>" type="input"
+                            class="form-control" id="inputName" name="name"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputBirtDay">Ngày mở(*)</label>
+                        <input value="<?php if(!empty($result->dayStart)) echo $result->dayStart?>" type="datetime-local"
+                            class="form-control" id="birtd" name="dayStart"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputName">Giờ mở cửa(*)</label>
+                        <input value="<?php if(!empty($result->timeOpen))  echo $result->timeOpen?>" type="time"
+                            class="form-control" name="timeOpen"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputBirtDay">Giờ đóng cửa(*)</label>
+                        <input value="<?php if(!empty($result->timeClose))  echo $result->timeClose?>" type="time"
+                            class="form-control" name="timeClose"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputNameFamily">Loại sản phẩm kinh doanh (*)</label>
+                        <input value="<?php if(!empty($result->productCategory))  echo $result->productCategory?>" type="input"
+                            class="form-control" name="productCategory"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="inputCustomer">Số điện thoại (*)</label>
+                        <input value="<?php if(!empty($result->phone))  echo $result->phone?>" type="input"
+                            class="form-control" id="customerID" name="phone"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputAddress">Trạng thái (*)</label>
+                            <div>
+
+                                <?php if(empty($result->active)){
+                                        echo '<label class="text-warning">Chưa kích hoạt</label>';
+                                    } 
+                                    else{
+                                        if($result->active == 0){
+                                            echo '<label class="text-warning">Chưa kích hoạt</label>';
+                                        }else{
+                                            echo '<label class="text-success">Đã kích hoạt tài khoản</label>';
+                                        }
+                                    } 
+                                    ?>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><br />
+                <!-- {{!-- province, district, ward --}} -->
+                <!-- {{!-- email --}} -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputNameFamily">Email (*)</label>
+                        <input value="<?php if(!empty($result->email))  echo $result->email?>" type="input"
+                            class="form-control" id="nameFamily" name="email"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                </div><br />
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Cập Nhật Thông Tin</button>
+                </div>
+            </form>
+            <div class="pt-5 mt-5 border-top border-primary">
+                <form action="?action=sendcode" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="inputPassword">Mật khẩu (*)</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                                onchange="this.setCustomValidity('')" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputPassword">Xác nhận mật khẩu (*)</label>
+                            <input type="password" class="form-control" id="confirm_password" name="repassword"
+                                required>
+                        </div>
+                    </div><br />
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var locationVN = null;
+    var cityCustomer = null;
+    window.onload = function () {
+        (async () => {
+            locationVN = await fetch('https://provinces.open-api.vn/api/?depth=3')
+                .then(res => { return res.json() });
+            pushCityInputBox();
+        })();
+    };
+
+    function pushCityInputBox() {
+        let provincesNameHTML = `<option value="">Chọn tỉnh thành</option>`;
+        for (province of locationVN) {
+            provincesNameHTML += `<option value="${province.name}">${province.name}</option>`;
+        }
+        document.getElementById("citySelect").innerHTML += provincesNameHTML;
+    }
+
+    function choosedCity() {
+        document.getElementById("district").innerHTML = "";
+        document.getElementById("district").value = "";
+        document.getElementById("ward").innerHTML = "";
+        document.getElementById("ward").value = "";
+        let nameCity = document.getElementById("citySelect").value;
+        cityCustomer = locationVN.filter(item => item.name == nameCity)[0];
+        let districtsHTML = "";
+        for (let district of cityCustomer.districts) {
+            districtsHTML += `<option value="${district.name}">${district.name}</option>`;
+        };
+        document.getElementById("district").innerHTML = districtsHTML;
+    }
+
+    function choosedDistrict() {
+        let nameDistrict = document.getElementById("district").value;
+        let wards = cityCustomer.districts.filter(item => item.name == nameDistrict)
+        let wardsHTML = ""
+        for (let ward of wards[0].wards) {
+            wardsHTML += `<option value="${ward.name}">${ward.name}</option>`
+        }
+        document.getElementById("ward").innerHTML = wardsHTML
+    }
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Không khớp mật khẩu!");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    // $(window).on('load', function () {
+    //     $('#warningBootstrapModal').modal('show');
+    // });
+    // $(document).ready(() => {
+    //     $('#hideNoticeRelPerson').click(() => {
+    //         $('#warningBootstrapModal').modal('hide');
+    //     })
+    // })
+</script>
+
+<!-- file upload moleculer -->
+<script>
+    // function uploadPut(postUrl) {
+    //   const input = document.querySelector("#myJSFile");
+    //   const pOK = document.querySelector("#responseOK");
+    //   const pError = document.querySelector("#responseError");
+    //   pOK.innerHTML = "";
+    //   pError.innerHTML = "";
+
+    //   var req = new XMLHttpRequest();
+    //   req.open("PUT", postUrl);
+    //   req.setRequestHeader("Content-type", "image/png");
+    //   req.onload = function(event) {
+    //     if (event.target.status == 200)
+    //       return (pOK.innerHTML =
+    //         "Uploaded successfully! Path: " +
+    //         JSON.parse(event.target.responseText).filePath);
+
+    //     pError.innerHTML = "Upload error: " + event.target.responseText;
+    //   };
+    //   req.send(input.files[0]);
+    // }
+  </script>
