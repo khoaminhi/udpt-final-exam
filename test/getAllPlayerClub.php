@@ -1,5 +1,5 @@
 <?php
-require_once "./../config/dbconnect.php";
+require_once "./../config.inc.php";
 require_once "./playerController.php";
 require_once "./playerModel.php";
 

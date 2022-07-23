@@ -1,13 +1,13 @@
 <?php
 class dbconnect{
-    private $server = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $db = "footballdb";
+    private static $server = "localhost";
+    private static $username = "root";
+    private static $password = "";
+    private static $db = "footballdb";
     public static $conn;
     
     static function connect(){
-        self::$conn = new mysqli($server, $username, $password, $db);
+        self::$conn = new mysqli(self::$server, self::$username, self::$password, self::$db);
         if (self::$conn->connect_errno) {
             die("<script>console.log('Couldnt connect to thicuoiky database: " . self::$conn->connect_error . "')</script>");
         }

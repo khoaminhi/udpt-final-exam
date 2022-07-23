@@ -1,2 +1,2 @@
-# 18120418_ThiCuoiKy_ThiCuoiKy
- store frontend
+# 18120418_PhamMinhKhoas
+ Thi Cuoi Ky

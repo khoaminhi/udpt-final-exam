@@ -12,7 +12,7 @@ class AuthController
         require_once($cssRefPath . "template/template.phtml");
     }
 
-    public static function checkSession($pathRedirect="Location:/18120418_ThiCuoiKy_ThiCuoiKy/router/auth.php"){
+    public static function checkSession($pathRedirect="Location:/18120418_PhamMinhKhoa/router/auth.php"){
         if(!isset($_SESSION["userid"])){
             return false;
         }
@@ -78,7 +78,7 @@ class AuthController
         unset($_SESSION["userid"]);
         unset($_SESSION["active-store"]);
         //header("Location:loginout.php");
-        echo "<script>window.location.href='/18120418_ThiCuoiKy/router/auth.php'</script>";
+        echo "<script>window.location.href='/18120418_PhamMinhKhoa/router/auth.php'</script>";
     }
 }
 ?>
