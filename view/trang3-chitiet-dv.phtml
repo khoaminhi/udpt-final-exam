@@ -1,0 +1,207 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="w-75">
+            <!-- store info -->
+            <h4 class="text-center mt-3" style="color: rgb(250 20 156); font-weight: bold;">Đơn hàng đã đặt</h4>
+
+            <!-- Tìm đơn hàng đã đặt -->
+            <form class="my-5" action="?action=tracuu-dondv" method="GET">
+                <input type="hidden" name="action" value="tracuu-dondv">
+                <label for="inputName">Nhập mã đăng ký</label>    
+                <input type="input" class="mb-2" name="MaDangKy" value="<?php if(!empty($result->MaDangKy))  echo $result->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Tìm đơn hàng đã đặt</button>
+                </div>
+            </form>
+            <hr class="dropdown-divider my-4 border">
+
+            <!-- Thong tin don yeu cau dich vu -->
+            <form class="was-validated mb-3" method="POST" action="?action=suadondichvu">
+                <!-- <div>
+                    <label for="">Ảnh logo</label>
+                    <input type="file" name="logo" id="logo" />
+                </div> -->
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($result->MaDangKy))  echo $result->MaDangKy?>">
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        Mã yêu cầu dịch vụ:
+                        <span style="color: rgb(250 20 156);"><?php if(!empty($result->MaDangKy))  echo $result->MaDangKy?></span>
+                    </div>
+                    <div class="col-md-4">
+                        Trạng thái đơn yêu cầu dịch vụ:
+                        <span style="color: rgb(250 20 156);"><?php if(!empty($result->TrangThai))  echo $result->TrangThai?></span>
+                    </div>
+                    <div class="col-md-4">
+                        Ngày đặt dịch vụ:
+                        <span style="color: rgb(250 20 156);"><?php if(!empty($result->ThoiGianBD))  echo $result->ThoiGianBD?></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="inputName">Tên khách hàng (*)</label>
+                        <input type="input" placeholder="nhập tên khách hàng" class="form-control"
+                            name="TenKH" oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required
+                            value="<?php if(!empty($result->TenKH))  echo $result->TenKH?>">
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCustomer">Số điện thoại (*)</label>
+                        <input type="input" class="form-control" name="DienThoai"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required
+                            value="<?php if(!empty($result->DienThoai))  echo $result->DienThoai?>">
+                        <div class="invalid-feedback">Vui lòng điền thông tin.</div>
+                    </div>
+                </div>
+                <!-- {{!-- address --}} -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputStreet">Địa chỉ(*)</label>
+                        <input value="<?php if(!empty($result->DiaChi))  echo $result->DiaChi?>" type="input"
+                            class="form-control" id="street" name="address"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                </div><br />
+                <!-- Chon dich vu -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="chonDichVU">Chọn dịch vụ</label>
+                        <select id="chonDichVU" class="form-select form-select-md mb-3" aria-label=".form-select-lg example"
+                            oninvalid="this.setCustomValidity('Vui lòng chọn dịch vụ!')"
+                            onchange="this.setCustomValidity('')" required name="MaDV">
+                            <option value="<?php if(!empty($result->MaDV))  echo $result->MaDV?>">
+                            <?php 
+                            if(!empty($result->MaDV)){
+                                foreach ($dichvu as $dv) {
+                                    if($result->MaDV == $dv->MaDV){
+                                        echo $dv->TenDV;
+                                    }
+                                }
+                            }
+                            ?>
+                            </option>
+                            <?php
+                                foreach ($dichvu as $dv) {
+                                    echo "<option value='$dv->MaDV'>$dv->TenDV</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <!-- CHon so luong và Tính tiền -->
+                <div class="row mb-3">
+                    <div class="col-md-5">
+                        <label for="SoLuong">Đơn giá</label>
+                        <input type="number" value="<?php 
+                            if(!(empty($dichvu) && empty($result))){
+                                if(!empty($result->MaDV)){
+                                    foreach ($dichvu as $dv) {
+                                        if($result->MaDV == $dv->MaDV){
+                                            echo $dv->DonGia;
+                                        }
+                                    };
+                                }
+                            };
+                            ?>"
+                            min="1" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="SoLuong">Số lượng (*)</label>
+                        <input type="number" value="<?php if(!empty($result->SoLuong))  echo $result->SoLuong?>"
+                         min="1" class="form-control" id="SoLuong" name="SoLuong"
+                            oninvalid="this.setCustomValidity('Vui lòng điền thông tin!')"
+                            onchange="this.setCustomValidity('')" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="SoLuong">Thành tiền</label>
+                        <input type="number" value="<?php if(!empty($result->ThanhTien))  echo $result->ThanhTien?>" 
+                            min="0" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Ghi Chú</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="GhiChu"
+                    ><?php if(!empty($result->GhiChu))  echo $result->GhiChu?></textarea>
+                </div>                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Sửa đơn dịch vụ</button>
+                </div>
+            </form>
+            <hr class="dropdown-divider my-5 border">
+            <!-- Huy dich vu -->
+            <form class="my-3" action="donhang.php?action=huy" method="post">
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($result->MaDangKy))  echo $result->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Huy dịch vụ</button>
+                </div>
+            </form>                    
+
+            <div class="row text-center">
+                <p class="mt-4">Xem thông tin đơn hàng? <a href="?action=chitietdichvu">Xem dịch vụ đã đặt</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var locationVN = null;
+    var cityCustomer = null;
+    window.onload = function () {
+        (async () => {
+            locationVN = await fetch('https://provinces.open-api.vn/api/?depth=3')
+                .then(res => { return res.json() });
+            pushCityInputBox();
+        })();
+    };
+
+    function pushCityInputBox() {
+        let provincesNameHTML = `<option value="">Chọn tỉnh thành</option>`;
+        for (province of locationVN) {
+            provincesNameHTML += `<option value="${province.name}">${province.name}</option>`;
+        }
+        document.getElementById("citySelect").innerHTML += provincesNameHTML;
+    }
+
+    function choosedCity() {
+        document.getElementById("district").innerHTML = "";
+        document.getElementById("district").value = "";
+        document.getElementById("ward").innerHTML = "";
+        document.getElementById("ward").value = "";
+        let nameCity = document.getElementById("citySelect").value;
+        cityCustomer = locationVN.filter(item => item.name == nameCity)[0];
+        let districtsHTML = "";
+        for (let district of cityCustomer.districts) {
+            districtsHTML += `<option value="${district.name}">${district.name}</option>`;
+        };
+        document.getElementById("district").innerHTML = districtsHTML;
+    }
+
+    function choosedDistrict() {
+        let nameDistrict = document.getElementById("district").value;
+        let wards = cityCustomer.districts.filter(item => item.name == nameDistrict)
+        let wardsHTML = ""
+        for (let ward of wards[0].wards) {
+            wardsHTML += `<option value="${ward.name}">${ward.name}</option>`
+        }
+        document.getElementById("ward").innerHTML = wardsHTML
+    }
+
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Không khớp mật khẩu!");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    
+</script>

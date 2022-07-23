@@ -11,7 +11,7 @@ class PlayerController{
         $limit = urldecode($limit < 1 ? 10 : $limit);
 
 
-        echo "controller page: " . $page ."limit" . $limit;
+        //echo "controller page: " . $page ."limit" . $limit;
 
         $result = PlayerModel::getAllPlayerClub($page, $limit);
         $listAllPlayer = $result->listAllPlayer;

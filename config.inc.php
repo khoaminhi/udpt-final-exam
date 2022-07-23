@@ -2,8 +2,8 @@
 class dbconnect{
     private static $server = "localhost";
     private static $username = "root";
-    private static $password = "";
-    private static $db = "footballdb";
+    private static $password = "";//"root";
+    private static $db = "DichVuDB";//"footballdb";
     public static $conn;
     
     static function connect(){

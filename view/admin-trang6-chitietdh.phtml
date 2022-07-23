@@ -1,0 +1,164 @@
+<style>
+    .positionAtRight {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        border: 2px solid rgb(101, 184, 220);
+        padding: 10px;
+        margin: 10px;
+        height: fit-content;
+    }
+
+    .stylePlayerClub {
+        display: flex;
+        position: relative;
+        height: fit-content;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    table.searchPlayerTableInput,
+    table.searchPlayerTableInput th,
+    table.searchPlayerTableInput td,
+    table.searchPlayerTableInput tr {
+        border: 0;
+    }
+
+    .searchPlayerInput {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .alignAdvancedSearchButton {
+        text-align: end;
+    }
+
+    .advancedSearch {
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    #searchPlayerTable{
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    .deletePlayerButton{
+        border: 2px solid rgb(131, 188, 237);
+        border-radius: 2px;
+        margin: 2px 4px 2px 4px;
+    }
+</style>
+<div class="container">
+    <div id="searchPlayerTable">
+        <table>
+            <tr>
+                <th>TenKH</th>
+                <th>DienThoai</th>
+                <th>DiaChi</th>
+                <th>ThoiGianBD</th>
+                <th>TrangThai</th>
+                <th>ThoiGianKT</th>
+                <!-- jjjjj -->
+                <th>MaDV</th>
+                <th>SoLuong</th>
+                <th>ThanhTien</th>
+                <th>GhiChu</th>
+                <th>MaDangKy</th>
+            </tr>
+            <?php 
+            echo $order->TenKH;
+            $tr = "<tr>
+                <td>
+                    $order->TenKH
+                </td>
+                <td>
+                    $order->DienThoai
+                </td>
+                <td>
+                    $order->DiaChi
+                </td>
+                <td>
+                    $order->ThoiGianBD
+                </td>
+                <!-- daddd -->
+                <td>
+                    $order->TrangThai 
+                </td>
+                <td>
+                    $order->ThoiGianKT 
+                </td>
+                <td>
+                    $order->MaDV 
+                </td>
+                <td>
+                    $order->SoLuong 
+                </td>
+                <td>
+                    $order->ThanhTien 
+                </td>
+                <td>
+                    $order->GhiChu
+                </td>
+                <td>
+                    $order->MaDangKy
+                </td>
+            </tr>";
+            echo $tr;
+            ?>
+        </table>
+    </div>
+</div>
+<?php $statusLevel = (empty($statusLevel) ==true) ? 1 : $statusLevel ?>
+<div class="container">
+    <div class="row">
+        <div class="col-3 col-md-3">
+            <form class="my-3" action="admin.php?action=capnhattrangthai" method="post" 
+            <?php 
+            if($statusLevel > 2) echo "disabled";
+            ?>>
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($order->MaDangKy))  echo $order->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="TrangThai" value="DAXACNHAN" class="btn btn-success">ĐÃ XÁC NHẬN</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3 col-md-3">
+            <form class="my-3" action="admin.php?action=capnhattrangthai" method="post" 
+            <?php 
+            if($statusLevel > 3) echo "disabled";
+            ?>>
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($order->MaDangKy))  echo $order->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="TrangThai" value="DANGTIENHANH" class="btn btn-success">ĐANG TIẾN HÀNH</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3 col-md-3">
+            <form class="my-3" action="admin.php?action=capnhattrangthai" method="post" 
+            <?php 
+            if($statusLevel > 4) echo "disabled";
+            ?>>
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($order->MaDangKy))  echo $order->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="TrangThai" value="HOANTAT" class="btn btn-success">HOÀN TẤT</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3 col-md-3">
+            <form class="my-3" action="admin.php?action=capnhattrangthai" method="post" 
+            <?php 
+            if($statusLevel > 5) echo "disabled";
+            ?>>
+                <input type="hidden" name="MaDangKy" value="<?php if(!empty($order->MaDangKy))  echo $order->MaDangKy?>">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="TrangThai" value="HUY" class="btn btn-success">HỦY</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

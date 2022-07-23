@@ -1,6 +1,6 @@
 <?php
 $cssRefPath = "";
-$CONTENT_PATH = "./template/testFooterWithContent.phtml";
+$CONTENT_PATH = "./view/home.phtml";
 
 require_once("$cssRefPath./template/template.phtml");
 ?>

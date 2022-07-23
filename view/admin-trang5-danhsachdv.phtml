@@ -1,0 +1,243 @@
+<style>
+    .positionAtRight {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        border: 2px solid rgb(101, 184, 220);
+        padding: 10px;
+        margin: 10px;
+        height: fit-content;
+    }
+
+    .stylePlayerClub {
+        display: flex;
+        position: relative;
+        height: fit-content;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    table.searchPlayerTableInput,
+    table.searchPlayerTableInput th,
+    table.searchPlayerTableInput td,
+    table.searchPlayerTableInput tr {
+        border: 0;
+    }
+
+    .searchPlayerInput {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .alignAdvancedSearchButton {
+        text-align: end;
+    }
+
+    .advancedSearch {
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    #searchPlayerTable{
+        border: 2px solid rgb(131, 188, 237);
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    .deletePlayerButton{
+        border: 2px solid rgb(131, 188, 237);
+        border-radius: 2px;
+        margin: 2px 4px 2px 4px;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchPlayer').click(function () {
+            let keySearch = encodeURI($('#inputSearchPlayer').val());
+            let url = 'getAllPlayerClub.php?action=searchPlayer&keySearch=' + keySearch;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#advancedSearchButton').click(function () {
+            let orderName = encodeURI($('#orderNameInput').val());
+            let orderPosition = encodeURI($('#orderPositionInput').val());
+            let orderClub = encodeURI($('#orderClubInput').val());
+            let orderNumber = encodeURI($('#orderNumberInput').val());
+            let orderNationality = encodeURI($('#orderNationalityInput').val());
+            let url = 'getAllPlayerClub.php?action=searchPlayerAdvanced';
+            let data = {
+                orderName,
+                orderPosition,
+                orderClub,
+                orderNumber,
+                orderNationality
+            };
+            $.ajax({
+                url,
+                type: 'GET',
+                data,
+                async: true,
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.deletePlayerButton').click(function(){
+            let orderID = encodeURI($(this).val());
+            let url = '/18120418_PhamMinhKhoa/components/addModifyPlayer.php?action=delete';
+            let data = {
+                orderID
+            };
+            $.ajax({
+                url,
+                type: 'POST',
+                data,
+                success: function (data) {
+                    $('#searchPlayerTable').html(data);
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+
+<div class="stylePlayerClub">
+    <div class="positionAtRight">
+        <div class="searchPlayerInput">
+            <input type="text" name="keySearch" placeholder="Search order" id="inputSearchPlayer" />
+            <input type="button" value="Search" id="searchPlayer" />
+        </div>
+
+        <div class="advancedSearch">
+            <table class="searchPlayerTableInput">
+                <caption>Advanced Search</caption>
+                <tr>
+                    <th>Name:</th>
+                    <td><input type="text" id="orderNameInput"></td>
+                </tr>
+                <tr>
+                    <th>Position:</th>
+                    <td><input type="text" id="orderPositionInput"></td>
+                </tr>
+                <tr>
+                    <th>Club:</th>
+                    <td><input type="text" id="orderClubInput"></td>
+                </tr>
+                <tr>
+                    <th>Number:</th>
+                    <td><input type="text" id="orderNumberInput"></td>
+                </tr>
+                <tr>
+                    <th>Nationality:</th>
+                    <td><input type="text" id="orderNationalityInput"></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td class="alignAdvancedSearchButton"><input type="button" value="Advanced Search"
+                            id="advancedSearchButton"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="redirectPlayerPosition">
+            <a href="./getAllPlayer.php">Redirect to get all order!</a>
+        </div>
+    </div>
+
+    <div id="searchPlayerTable">
+        <table>
+            <tr>
+                <th>TenKH</th>
+                <th>DienThoai</th>
+                <th>DiaChi</th>
+                <th>ThoiGianBD</th>
+                <th>TrangThai</th>
+                <th>ThoiGianKT</th>
+                <!-- jjjjj -->
+                <th>MaDV</th>
+                <th>SoLuong</th>
+                <th>ThanhTien</th>
+                <th>GhiChu</th>
+                <th>MaDangKy</th>
+                <th>Modify</th>
+            </tr>
+            <?php foreach ($result as $order): ?>
+            <tr>
+                <td>
+                    <?= $order->TenKH ?>
+                </td>
+                <td>
+                    <?= $order->DienThoai ?>
+                </td>
+                <td>
+                    <?= $order->DiaChi ?>
+                </td>
+                <td>
+                    <?= $order->ThoiGianBD?>
+                </td>
+                <!-- daddd -->
+                <td>
+                    <?= $order->TrangThai ?>
+                </td>
+                <td>
+                    <?= $order->ThoiGianKT ?>
+                </td>
+                <td>
+                    <?= $order->MaDV ?>
+                </td>
+                <td>
+                    <?= $order->SoLuong ?>
+                </td>
+                <td>
+                    <?= $order->ThanhTien ?>
+                </td>
+                <td>
+                    <?= $order->GhiChu?>
+                </td>
+                <td>
+                    <?= $order->MaDangKy?>
+                </td>
+                <td>
+                    <?php $link="?action=capnhattrangthai";
+                    $link.="&TenKH=".urlencode($order->TenKH);
+                    $link.="&DienThoai=".urlencode($order->DienThoai);
+                    $link.="&DiaChi=".urlencode($order->DiaChi);
+                    $link.="&ThoiGianBD=".urlencode($order->ThoiGianBD);
+                    $link.="&TrangThai=".urlencode($order->TrangThai);
+
+                    $link.="&ThoiGianKT=".urlencode($order->ThoiGianKT);
+                    $link.="&MaDV=".urlencode($order->MaDV);
+                    $link.="&SoLuong=".urlencode($order->SoLuong);
+                    $link.="&ThanhTien=".urlencode($order->ThanhTien);
+                    $link.="&GhiChu=".urlencode($order->GhiChu);
+                    $link.="&MaDangKy=".urlencode($order->MaDangKy);
+                    ?>
+                    <a href="<?php echo $link?>">modify</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+
+<div>
+    <?php if(!empty($paginButton)) echo $paginButton?>
+</div>

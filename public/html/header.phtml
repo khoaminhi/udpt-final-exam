@@ -2,7 +2,7 @@
     <div class="logo ">
         <a href="/18120418_PhamMinhKhoa/index.php"><img src=<?php echo $cssRefPath . "public\image\anhthekhoaminhi.png" ?>
             alt="logo" /></a>
-        <p>Phạm Minh Khoa</p>
+        <p>Dich VU ABC</p>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar">
@@ -13,31 +13,34 @@
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body  text-start">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <div style="color:rgb(0 67 255);" class="offcanvas-body align-items-center  text-start">
+            <ul class="navbar-nav justify-content-end align-items-center flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                    <a style="color: inherit;" class="nav-link active" aria-current="page" href="/18120418_PhamMinhKhoa">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Thông tin</a>
+                    <a style="color: inherit;" class="nav-link" href="#">Thông tin</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a style="color: inherit;" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Chức năng
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Chức năng 1</a></li>
-                        <li><a class="dropdown-item" href="#">Chức năng 2</a></li>
+                    <ul style="color:rgb(0 67 255);" class="dropdown-menu">
+                        <li style="color: inherit;">Khách Hàng</li>
+                        <li><a style="color: inherit;" class="dropdown-item" href="/18120418_PhamMinhKhoa/router/donhang.php">Đặt dịch vụ</a></li>
+                        <li><a style="color: inherit;" class="dropdown-item" href="/18120418_PhamMinhKhoa/router/donhang.php?action=tracuu-dondv">Tra cứu đơn đặt</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Chức năng khác</a></li>
+                        <li style="color: inherit;">Admin</li>
+                        <li><a style="color: inherit;" class="dropdown-item" href="/18120418_PhamMinhKhoa/router/admin.php">Danh sách chức năng</a></li>
+                        <li><a style="color: inherit;" class="dropdown-item" href="/18120418_PhamMinhKhoa/router/admin.php?action=danhsachdv">Đơn hàng</a></li>
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input style="font-style: italic;" class="form-control me-2" type="search" placeholder="nhập" aria-label="Search">
+            <form style="color:rgb(0 67 255);" class="d-flex  m-0" role="search">
+                <input style="font-style: italic; color: inherit;" class="form-control me-2" type="search" placeholder="nhập" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Tìm</button>
             </form>
         </div>
